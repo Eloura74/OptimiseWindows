@@ -1,0 +1,38 @@
+# Prerequisites
+*.d
+*.obj
+*.exe
+*.ilk
+*.pdb
+*.opb
+*.pch
+*.lib
+*.dll
+*.exp
+*.map
+
+# CMake
+/build/
+/build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+*.cmake
+!/cmake/*.cmake
+Testing/
+_deps/
+
+# IDEs
+.vscode/
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db

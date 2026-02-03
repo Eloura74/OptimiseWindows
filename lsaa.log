@@ -1,0 +1,209 @@
+[2026-02-03 18:53:57] [INFO]  ------------------------------------------
+[2026-02-03 18:53:57] [INFO]     LSAA Core System Starting (Phase 1)    
+[2026-02-03 18:53:57] [INFO]  ------------------------------------------
+[2026-02-03 18:53:57] [INFO]  Engine initializing modules...
+[2026-02-03 18:53:57] [INFO]  Module initialized: SystemMonitorCPU
+[2026-02-03 18:53:57] [INFO]  Module initialized: SystemMonitorRAM
+[2026-02-03 18:53:57] [INFO]  Engine entering main loop.
+[2026-02-03 18:53:57] [INFO]  [SystemMonitorCPU] cpu_usage_percent=0.0 
+[2026-02-03 18:53:57] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28333621248 
+[2026-02-03 18:53:58] [INFO]  [SystemMonitorCPU] cpu_usage_percent=4.1 
+[2026-02-03 18:53:58] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28356395008 
+[2026-02-03 18:53:59] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.2 
+[2026-02-03 18:53:59] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28356218880 
+[2026-02-03 18:54:00] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.9 
+[2026-02-03 18:54:00] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28420870144 
+[2026-02-03 18:54:01] [INFO]  [SystemMonitorCPU] cpu_usage_percent=2.4 
+[2026-02-03 18:54:01] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28394311680 
+[2026-02-03 18:54:02] [INFO]  [SystemMonitorCPU] cpu_usage_percent=4.1 
+[2026-02-03 18:54:02] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28406943744 
+[2026-02-03 18:54:03] [INFO]  [SystemMonitorCPU] cpu_usage_percent=5.1 
+[2026-02-03 18:54:03] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28466663424 
+[2026-02-03 18:54:04] [INFO]  [SystemMonitorCPU] cpu_usage_percent=2.4 
+[2026-02-03 18:54:04] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28479381504 
+[2026-02-03 18:54:05] [INFO]  [SystemMonitorCPU] cpu_usage_percent=2.7 
+[2026-02-03 18:54:05] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28470456320 
+[2026-02-03 18:54:06] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.4 
+[2026-02-03 18:54:06] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28478078976 
+[2026-02-03 18:54:07] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.8 
+[2026-02-03 18:54:07] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28512854016 
+[2026-02-03 18:54:08] [INFO]  [SystemMonitorCPU] cpu_usage_percent=2.2 
+[2026-02-03 18:54:08] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28532809728 
+[2026-02-03 18:54:09] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.1 
+[2026-02-03 18:54:09] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28563419136 
+[2026-02-03 18:54:10] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.6 
+[2026-02-03 18:54:10] [INFO]  [SystemMonitorRAM] ram_load_percent=39.0 ram_total_bytes=68640256000 ram_used_bytes=27400794112 
+[2026-02-03 18:54:11] [INFO]  [SystemMonitorCPU] cpu_usage_percent=10.3 
+[2026-02-03 18:54:11] [INFO]  [SystemMonitorRAM] ram_load_percent=39.0 ram_total_bytes=68640256000 ram_used_bytes=27428990976 
+[2026-02-03 18:54:12] [INFO]  Interrupt signal (2) received. Stopping...
+[2026-02-03 18:54:12] [INFO]  System stopped cleanly.
+[2026-02-03 18:57:19] [INFO]  ------------------------------------------
+[2026-02-03 18:57:19] [INFO]     LSAA Core System Starting (Phase 1)    
+[2026-02-03 18:57:19] [INFO]  ------------------------------------------
+[2026-02-03 18:57:19] [INFO]  Engine initializing modules...
+[2026-02-03 18:57:19] [INFO]  Module initialized: SystemMonitorCPU
+[2026-02-03 18:57:19] [INFO]  Module initialized: SystemMonitorRAM
+[2026-02-03 18:57:19] [INFO]  Module initialized: ProcessMonitor
+[2026-02-03 18:57:19] [INFO]  Engine entering main loop.
+[2026-02-03 18:57:19] [INFO]  [SystemMonitorCPU] cpu_usage_percent=0.0 
+[2026-02-03 18:57:19] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27736928256 
+[2026-02-03 18:57:19] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:20] [INFO]  [SystemMonitorCPU] cpu_usage_percent=4.1 
+[2026-02-03 18:57:20] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27758669824 
+[2026-02-03 18:57:20] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:21] [INFO]  [SystemMonitorCPU] cpu_usage_percent=2.9 
+[2026-02-03 18:57:21] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27759214592 
+[2026-02-03 18:57:21] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:22] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.5 
+[2026-02-03 18:57:22] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27772264448 
+[2026-02-03 18:57:22] [INFO]  [ProcessMonitor] process_count=282 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:23] [INFO]  [SystemMonitorCPU] cpu_usage_percent=5.9 
+[2026-02-03 18:57:23] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27789549568 
+[2026-02-03 18:57:23] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:24] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.6 
+[2026-02-03 18:57:24] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27806633984 
+[2026-02-03 18:57:24] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301372928 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:25] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.4 
+[2026-02-03 18:57:25] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27840552960 
+[2026-02-03 18:57:25] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301377024 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:26] [INFO]  [SystemMonitorCPU] cpu_usage_percent=7.0 
+[2026-02-03 18:57:26] [INFO]  [SystemMonitorRAM] ram_load_percent=40.0 ram_total_bytes=68640256000 ram_used_bytes=27859099648 
+[2026-02-03 18:57:26] [INFO]  [ProcessMonitor] process_count=280 top_mem_bytes=1301381120 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 18:57:27] [INFO]  Interrupt signal (2) received. Stopping...
+[2026-02-03 19:50:22] [INFO]  ------------------------------------------
+[2026-02-03 19:50:22] [INFO]     LSAA Core System Starting (Phase 1)    
+[2026-02-03 19:50:22] [INFO]  ------------------------------------------
+[2026-02-03 19:50:22] [INFO]  Engine initializing modules...
+[2026-02-03 19:50:22] [INFO]  Module initialized: SystemMonitorCPU
+[2026-02-03 19:50:22] [INFO]  Module initialized: SystemMonitorRAM
+[2026-02-03 19:50:22] [INFO]  Module initialized: ProcessMonitor
+[2026-02-03 19:50:22] [INFO]  Engine entering main loop.
+[2026-02-03 19:50:22] [INFO]  [SystemMonitorCPU] cpu_usage_percent=0.0 
+[2026-02-03 19:50:22] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28653830144 
+[2026-02-03 19:50:22] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1030057984 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:22] [INFO]  Rule Triggered: SystemActive
+[2026-02-03 19:50:22] [INFO]  Le systeme utilise de la RAM (Test Regle OK)
+[2026-02-03 19:50:22] [INFO]  Rule Triggered: ManyProcesses
+[2026-02-03 19:50:22] [INFO]  Nombre de processus élevé (>100)
+[2026-02-03 19:50:23] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.5 
+[2026-02-03 19:50:23] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28423979008 
+[2026-02-03 19:50:23] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1030320128 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:24] [INFO]  [SystemMonitorCPU] cpu_usage_percent=7.2 
+[2026-02-03 19:50:24] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28442796032 
+[2026-02-03 19:50:24] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1030426624 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:25] [INFO]  [SystemMonitorCPU] cpu_usage_percent=3.9 
+[2026-02-03 19:50:25] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28443136000 
+[2026-02-03 19:50:25] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1030561792 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:26] [INFO]  [SystemMonitorCPU] cpu_usage_percent=1.4 
+[2026-02-03 19:50:26] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28453072896 
+[2026-02-03 19:50:26] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1030676480 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:27] [INFO]  [SystemMonitorCPU] cpu_usage_percent=5.1 
+[2026-02-03 19:50:27] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28486332416 
+[2026-02-03 19:50:27] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1032433664 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:28] [INFO]  [SystemMonitorCPU] cpu_usage_percent=4.8 
+[2026-02-03 19:50:28] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28500160512 
+[2026-02-03 19:50:28] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1033379840 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:29] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.9 
+[2026-02-03 19:50:29] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28523991040 
+[2026-02-03 19:50:29] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1033494528 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:30] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.2 
+[2026-02-03 19:50:30] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28621500416 
+[2026-02-03 19:50:30] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1089282048 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:31] [INFO]  [SystemMonitorCPU] cpu_usage_percent=6.2 
+[2026-02-03 19:50:31] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28611563520 
+[2026-02-03 19:50:31] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1090686976 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:32] [INFO]  [SystemMonitorCPU] cpu_usage_percent=8.4 
+[2026-02-03 19:50:32] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28684685312 
+[2026-02-03 19:50:32] [INFO]  [ProcessMonitor] process_count=283 top_mem_bytes=1119928320 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:50:33] [INFO]  Interrupt signal (2) received. Stopping...
+[2026-02-03 19:50:33] [INFO]  System stopped cleanly.
+[2026-02-03 19:53:56] [INFO]  ------------------------------------------
+[2026-02-03 19:53:56] [INFO]     LSAA Core System Starting (Phase 1)    
+[2026-02-03 19:53:56] [INFO]  ------------------------------------------
+[2026-02-03 19:53:56] [INFO]  Engine initializing modules...
+[2026-02-03 19:53:56] [INFO]  Module initialized: SystemMonitorCPU
+[2026-02-03 19:53:56] [INFO]  Module initialized: SystemMonitorRAM
+[2026-02-03 19:53:56] [INFO]  Module initialized: ProcessMonitor
+[2026-02-03 19:53:56] [INFO]  Engine entering main loop.
+[2026-02-03 19:53:56] [INFO]  [SystemMonitorCPU] cpu_usage_percent=0.0 
+[2026-02-03 19:53:56] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28361351168 
+[2026-02-03 19:53:56] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:53:56] [INFO]  Rule Triggered: SystemActive
+[2026-02-03 19:53:56] [INFO]  Le systeme utilise de la RAM (Test Regle OK)
+[2026-02-03 19:53:56] [INFO]  Rule Triggered: ManyProcesses
+[2026-02-03 19:53:56] [INFO]  Nombre de processus élevé (>100)
+[2026-02-03 19:53:56] [INFO]  Rule Triggered: TestActionScript
+[2026-02-03 19:53:56] [INFO]  ActionScript Executed: cmd.exe /c echo Action Script Works > build\valide_action.txt
+[2026-02-03 19:53:57] [INFO]  [SystemMonitorCPU] cpu_usage_percent=4.5 
+[2026-02-03 19:53:57] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28376576000 
+[2026-02-03 19:53:57] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:53:58] [INFO]  [SystemMonitorCPU] cpu_usage_percent=5.1 
+[2026-02-03 19:53:58] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28375318528 
+[2026-02-03 19:53:58] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:53:59] [INFO]  [SystemMonitorCPU] cpu_usage_percent=5.7 
+[2026-02-03 19:53:59] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28402200576 
+[2026-02-03 19:53:59] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:54:00] [INFO]  [SystemMonitorCPU] cpu_usage_percent=7.8 
+[2026-02-03 19:54:00] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28448952320 
+[2026-02-03 19:54:00] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:54:01] [INFO]  [SystemMonitorCPU] cpu_usage_percent=7.7 
+[2026-02-03 19:54:01] [INFO]  [SystemMonitorRAM] ram_load_percent=41.0 ram_total_bytes=68640256000 ram_used_bytes=28476727296 
+[2026-02-03 19:54:01] [INFO]  [ProcessMonitor] process_count=277 top_mem_bytes=1409937408 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:54:02] [INFO]  Interrupt signal (2) received. Stopping...
+[2026-02-03 19:54:02] [INFO]  System stopped cleanly.
+[2026-02-03 19:55:28] [INFO]  ------------------------------------------
+[2026-02-03 19:55:28] [INFO]     LSAA Core System Starting (Phase 1)    
+[2026-02-03 19:55:28] [INFO]  ------------------------------------------
+[2026-02-03 19:55:28] [INFO]  Engine initializing modules...
+[2026-02-03 19:55:28] [INFO]  Module initialized: SystemMonitorCPU
+[2026-02-03 19:55:28] [INFO]  Module initialized: SystemMonitorRAM
+[2026-02-03 19:55:28] [INFO]  Module initialized: ProcessMonitor
+[2026-02-03 19:55:28] [INFO]  Engine entering main loop.
+[2026-02-03 19:55:28] [INFO]  [SystemMonitorCPU] cpu_usage_percent=0.0 
+[2026-02-03 19:55:28] [INFO]  [SystemMonitorRAM] ram_load_percent=42.0 ram_total_bytes=68640256000 ram_used_bytes=28973293568 
+[2026-02-03 19:55:28] [INFO]  [ProcessMonitor] process_count=276 top_mem_bytes=1410097152 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:55:28] [INFO]  Rule Triggered: SystemActive
+[2026-02-03 19:55:28] [INFO]  Le systeme utilise de la RAM (Test Regle OK)
+[2026-02-03 19:55:28] [INFO]  Rule Triggered: ManyProcesses
+[2026-02-03 19:55:28] [INFO]  Nombre de processus élevé (>100)
+[2026-02-03 19:55:28] [INFO]  Rule Triggered: TestActionScript
+[2026-02-03 19:55:28] [INFO]  ActionScript Executed: cmd.exe /c echo Action Script Works > build\valide_action.txt
+[2026-02-03 19:55:29] [INFO]  [SystemMonitorCPU] cpu_usage_percent=14.4 
+[2026-02-03 19:55:29] [INFO]  [SystemMonitorRAM] ram_load_percent=42.0 ram_total_bytes=68640256000 ram_used_bytes=28998713344 
+[2026-02-03 19:55:29] [INFO]  [ProcessMonitor] process_count=276 top_mem_bytes=1410097152 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:55:30] [INFO]  [SystemMonitorCPU] cpu_usage_percent=13.3 
+[2026-02-03 19:55:30] [INFO]  [SystemMonitorRAM] ram_load_percent=42.0 ram_total_bytes=68640256000 ram_used_bytes=29029568512 
+[2026-02-03 19:55:30] [INFO]  [ProcessMonitor] process_count=276 top_mem_bytes=1410097152 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:55:31] [INFO]  [SystemMonitorCPU] cpu_usage_percent=19.8 
+[2026-02-03 19:55:31] [INFO]  [SystemMonitorRAM] ram_load_percent=42.0 ram_total_bytes=68640256000 ram_used_bytes=29096878080 
+[2026-02-03 19:55:31] [INFO]  [ProcessMonitor] process_count=276 top_mem_bytes=1410097152 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:55:32] [INFO]  [SystemMonitorCPU] cpu_usage_percent=7.1 
+[2026-02-03 19:55:32] [INFO]  [SystemMonitorRAM] ram_load_percent=42.0 ram_total_bytes=68640256000 ram_used_bytes=29105885184 
+[2026-02-03 19:55:32] [INFO]  [ProcessMonitor] process_count=276 top_mem_bytes=1410097152 top_mem_process_name=language_server_windows_x64.exe 
+[2026-02-03 19:55:33] [INFO]  Interrupt signal (2) received. Stopping...
+[2026-02-03 19:55:33] [INFO]  System stopped cleanly.
+[2026-02-03 20:03:33] [INFO]  ------------------------------------------
+[2026-02-03 20:03:33] [INFO]     LSAA Core System Starting (Phase 4)    
+[2026-02-03 20:03:33] [INFO]  ------------------------------------------
+[2026-02-03 20:03:59] [INFO]  System stopped cleanly.
+[2026-02-03 20:05:28] [INFO]  ------------------------------------------
+[2026-02-03 20:05:28] [INFO]     LSAA Core System Starting (Phase 4)    
+[2026-02-03 20:05:28] [INFO]  ------------------------------------------
+[2026-02-03 20:05:52] [INFO]  System stopped cleanly.
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[INFO]  System stopped cleanly.
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[INFO]  System stopped cleanly.
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[INFO]  Interrupt signal (2) received. Stopping...
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[INFO]  Interrupt signal (2) received. Stopping...
+[INFO]  System stopped cleanly.
