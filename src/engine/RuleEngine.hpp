@@ -18,6 +18,10 @@ namespace lsaa {
             }
         }
 
+        void clear() {
+            rules_.clear();
+        }
+
     private:
         std::vector<std::unique_ptr<Rule>> rules_;
     };

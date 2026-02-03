@@ -22,6 +22,10 @@ namespace lsaa {
         void addRule(std::unique_ptr<Rule> rule) {
             ruleEngine_.addRule(std::move(rule));
         }
+        
+        void clearRules() {
+            ruleEngine_.clear();
+        }
 
         RuleEngine& getRuleEngine() { return ruleEngine_; }
 
