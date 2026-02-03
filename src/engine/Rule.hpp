@@ -3,43 +3,39 @@
 #include <variant>
 #include <functional>
 #include <utility>
+#include <memory>
+#include <cmath>
 #include "../core/IMonitor.hpp"
 #include "../core/Logger.hpp"
 
 namespace lsaa {
 
-    // Opérateurs de comparaison supportés
-    enum class Operator {
-        GREATER,
-        GREATER_EQUAL,
-        LESS,
-        LESS_EQUAL,
-        EQUAL,
-        NOT_EQUAL
+    // --- CONDITIONS ---
+
+    class ICondition {
+    public:
+        virtual ~ICondition() = default;
+        virtual bool evaluate(const MetricsMap& metrics) const = 0;
     };
 
-    // Une condition porte sur une métrique spécifique
-    class Condition {
+    // Generic Metric Condition (e.g. "cpu_usage_percent" > 90.0)
+    class ConditionGeneric : public ICondition {
     public:
-        Condition(std::string metric, Operator op, double threshold)
+        enum class Operator { GREATER, GREATER_EQUAL, LESS, LESS_EQUAL, EQUAL, NOT_EQUAL };
+
+        ConditionGeneric(std::string metric, Operator op, double threshold)
             : metric_(std::move(metric)), op_(op), threshold_(threshold) {}
 
-        bool evaluate(const MetricsMap& metrics) const {
+        bool evaluate(const MetricsMap& metrics) const override {
             auto it = metrics.find(metric_);
             if (it == metrics.end()) return false;
 
-            // On essaie de convertir la valeur en double pour la comparaison
             double val = 0.0;
             const auto& v = it->second;
             
-            if (std::holds_alternative<double>(v)) {
-                val = std::get<double>(v);
-            } else if (std::holds_alternative<long long>(v)) {
-                val = static_cast<double>(std::get<long long>(v));
-            } else {
-                // String comparison not supported for numeric operators in this MVP
-                return false;
-            }
+            if (std::holds_alternative<double>(v)) val = std::get<double>(v);
+            else if (std::holds_alternative<long long>(v)) val = static_cast<double>(std::get<long long>(v));
+            else return false;
 
             switch(op_) {
                 case Operator::GREATER:       return val > threshold_;
@@ -51,14 +47,29 @@ namespace lsaa {
             }
             return false;
         }
-
     private:
         std::string metric_;
         Operator op_;
         double threshold_;
     };
 
-    // Interface générique pour une action
+    // Specific CPU Condition Helper
+    class ConditionCPU : public ConditionGeneric {
+    public:
+        ConditionCPU(double threshold) 
+            : ConditionGeneric("cpu_usage_percent", Operator::GREATER, threshold) {}
+    };
+
+    // Specific RAM Condition Helper
+    class ConditionRAM : public ConditionGeneric {
+    public:
+        ConditionRAM(double threshold) 
+            : ConditionGeneric("ram_load_percent", Operator::GREATER, threshold) {}
+    };
+
+
+    // --- ACTIONS ---
+
     class IAction {
     public:
         virtual ~IAction() = default;
@@ -66,61 +77,56 @@ namespace lsaa {
         virtual std::string getName() const = 0;
     };
 
-    // Action simple : Log
     class ActionLog : public IAction {
     public:
-        ActionLog(LogLevel level, std::string msg) 
-            : level_(level), msg_(std::move(msg)) {}
-
+        enum class Level { INFO, WARN, ERR };
+        ActionLog(Level level, std::string msg) : level_(level), msg_(std::move(msg)) {}
         void execute() override {
-            // On utilise le logger global
-            switch(level_) {
-                case LogLevel::INFO:  LSAA_LOG_INFO(msg_); break;
-                case LogLevel::WARN:  LSAA_LOG_WARN(msg_); break;
-                case LogLevel::ERR:   LSAA_LOG_ERROR(msg_); break;
-                default: LSAA_LOG_DEBUG(msg_); break;
-            }
+            if(level_ == Level::WARN) LSAA_LOG_WARN(msg_);
+            else if(level_ == Level::ERR) LSAA_LOG_ERROR(msg_);
+            else LSAA_LOG_INFO(msg_);
         }
-        
         std::string getName() const override { return "LogAction"; }
-
     private:
-        LogLevel level_;
+        Level level_;
         std::string msg_;
     };
 
-    // Une Règle = Nom + Condition + Action
+
+    // --- RULE ---
+
     class Rule {
     public:
-        Rule(std::string name, Condition cond, std::unique_ptr<IAction> action)
+        Rule(std::string name) : name_(std::move(name)) {}
+        
+        // Legacy Constructor support (optional but helpful)
+        Rule(std::string name, std::unique_ptr<ICondition> cond, std::unique_ptr<IAction> action)
             : name_(std::move(name)), condition_(std::move(cond)), action_(std::move(action)) {}
 
-        void checkAndExecute(const MetricsMap& metrics) {
-            bool currentStatus = condition_.evaluate(metrics);
+        void setCondition(std::unique_ptr<ICondition> cond) { condition_ = std::move(cond); }
+        void setAction(std::unique_ptr<IAction> action) { action_ = std::move(action); }
 
-            // Logique simple pour l'instant : si condition vraie, on exécute
-            // TODO: Ajouter state (cooldown, duration) pour éviter le flapping
+        void checkAndExecute(const MetricsMap& metrics) {
+            if (!condition_ || !action_) return;
+
+            bool currentStatus = condition_->evaluate(metrics);
+
             if (currentStatus) {
                 if (!lastStatus_) {
-                    // Rising edge (vient de devenir vrai)
                     LSAA_LOG_INFO("Rule Triggered: " + name_);
                     action_->execute();
                 }
-                // Si on veut répéter l'action tant que c'est vrai, on le fait ici
-                // Pour l'instant on fait "Edge Triggered" (seulement au changement)
             } else {
                 if (lastStatus_) {
-                    // Falling edge (vient de devenir faux)
                     LSAA_LOG_INFO("Rule Cleared: " + name_);
                 }
             }
-
             lastStatus_ = currentStatus;
         }
 
     private:
         std::string name_;
-        Condition condition_;
+        std::unique_ptr<ICondition> condition_;
         std::unique_ptr<IAction> action_;
         bool lastStatus_ = false;
     };

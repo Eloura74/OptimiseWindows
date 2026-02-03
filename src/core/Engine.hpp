@@ -19,6 +19,10 @@ namespace lsaa {
             monitors_.push_back(std::move(monitor));
         }
 
+        void addRule(std::unique_ptr<Rule> rule) {
+            ruleEngine_.addRule(std::move(rule));
+        }
+
         RuleEngine& getRuleEngine() { return ruleEngine_; }
 
         void run() {

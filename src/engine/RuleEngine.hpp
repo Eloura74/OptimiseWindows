@@ -7,19 +7,19 @@ namespace lsaa {
 
     class RuleEngine {
     public:
-        void addRule(Rule rule) {
+        void addRule(std::unique_ptr<Rule> rule) {
             rules_.push_back(std::move(rule));
         }
 
         // Évalue toutes les règles par rapport aux métriques globales fusionnées
         void evaluate(const MetricsMap& metrics) {
             for (auto& rule : rules_) {
-                rule.checkAndExecute(metrics);
+                rule->checkAndExecute(metrics);
             }
         }
 
     private:
-        std::vector<Rule> rules_;
+        std::vector<std::unique_ptr<Rule>> rules_;
     };
 
 }

@@ -1,0 +1,29 @@
+[
+    {
+        "actionParam": "Alerte CPU Critique !",
+        "actionType": "NOTIFY",
+        "enabled": true,
+        "metric": "cpu_usage_percent",
+        "name": "HighCPU",
+        "oper": ">",
+        "threshold": 90.0
+    },
+    {
+        "actionParam": "Utilisation RAM elevee",
+        "actionType": "LOG",
+        "enabled": true,
+        "metric": "ram_load_percent",
+        "name": "HighRAM",
+        "oper": ">",
+        "threshold": 85.0
+    },
+    {
+        "actionParam": "Nombre de processus anormal",
+        "actionType": "LOG",
+        "enabled": true,
+        "metric": "process_count",
+        "name": "TooManyProcs",
+        "oper": ">",
+        "threshold": 250.0
+    }
+]

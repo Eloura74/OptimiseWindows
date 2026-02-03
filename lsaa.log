@@ -207,3 +207,15 @@
 [INFO]  ------------------------------------------
 [INFO]  Interrupt signal (2) received. Stopping...
 [INFO]  System stopped cleanly.
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[INFO]  Notification Sent: LSAA Test
+[INFO]  System stopped cleanly.
+[INFO]  ------------------------------------------
+[INFO]     LSAA Core System Starting (Phase 4)    
+[INFO]  ------------------------------------------
+[WARN]  Config file not found. Creating default.
+[INFO]  Configuration saved.
+[INFO]  Configuration loaded: 3 rules.
+[INFO]  System stopped cleanly.

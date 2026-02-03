@@ -26,10 +26,10 @@ int main() {
     LSAA_LOG_INFO("------------------------------------------");
     LSAA_LOG_INFO("   LSAA Core System Starting (Phase 4)    ");
     LSAA_LOG_INFO("------------------------------------------");
-
+    // 3. Setup Engine
     lsaa::Engine engine;
-    g_engine = &engine;
-
+    g_engine = &engine; // Assign global engine pointer
+    
     // Handle Ctrl+C
     signal(SIGINT, signalHandler);
 
@@ -43,14 +43,41 @@ int main() {
     engine.addMonitor(std::move(pm));
     // engine.addMonitor(std::make_unique<lsaa::GpuMonitor>()); // Future
 
-    // 3. Configure Rules
-    // ... (Keep existing rules or move to config loader)
-    engine.getRuleEngine().addRule(
-        lsaa::Rule("HighRAM",
-            lsaa::Condition("ram_load_percent", lsaa::Operator::GREATER, 80.0),
-            std::make_unique<lsaa::ActionLog>(lsaa::LogLevel::WARN, "ALERTE: Utilisation RAM critique (>80%) !")
-        )
-    );
+    // Init Config
+    lsaa::ConfigManager::instance().load();
+    auto& rules = lsaa::ConfigManager::instance().getRules();
+
+    for (const auto& cfg : rules) {
+        if (!cfg.enabled) continue;
+
+        // Factory mini-logic
+        std::unique_ptr<lsaa::ICondition> cond;
+        if (cfg.metric == "cpu_usage_percent") cond = std::make_unique<lsaa::ConditionCPU>(cfg.threshold);
+        else if (cfg.metric == "ram_load_percent") cond = std::make_unique<lsaa::ConditionRAM>(cfg.threshold);
+        else continue; // Unsupported metric for now
+
+        std::unique_ptr<lsaa::IAction> action;
+        if (cfg.actionType == "NOTIFY") action = std::make_unique<lsaa::ActionNotification>("LSAA Alert", cfg.actionParam);
+        else continue; // Unsupported action for now (Logging is default in engine usually?)
+        
+        // Note: The current Engine/Rule design might need adjustment to support dynamic generic rules perfectly, 
+        // but let's try to adapt.
+        // Actually, the previous hardcoded rules used specific classes.
+        // Let's stick to the mapped logic.
+        
+        auto rule = std::make_unique<lsaa::Rule>(cfg.name);
+        rule->setCondition(std::move(cond));
+        rule->setAction(std::move(action));
+        engine.addRule(std::move(rule));
+    }
+
+    // Default Fallback if no rules (safety)
+    if (rules.empty()) {
+        auto ruleCPU = std::make_unique<lsaa::Rule>("HighCPU_Legacy");
+        ruleCPU->setCondition(std::make_unique<lsaa::ConditionCPU>(90.0));
+        ruleCPU->setAction(std::make_unique<lsaa::ActionNotification>("Alerte CPU", "CPU > 90%"));
+        engine.addRule(std::move(ruleCPU));
+    }
 
     // 4. Init GUI
     auto& gui = lsaa::GuiManager::instance();
@@ -58,6 +85,9 @@ int main() {
         LSAA_LOG_ERROR("Failed to init GUI. Exiting.");
         return 1;
     }
+
+    // Init Config
+    lsaa::ConfigManager::instance().load();
 
     // 5. Start Engine in background thread
     std::thread engineThread([&engine]() {
@@ -80,10 +110,11 @@ int main() {
         if (metrics.count("ram_used_bytes")) ramUsed = std::get<long long>(metrics.at("ram_used_bytes"));
         if (metrics.count("ram_total_bytes")) ramTotal = std::get<long long>(metrics.at("ram_total_bytes"));
 
+        // Get extended data
         auto topProcs = pmPtr->getTopProcesses();
         auto logs = lsaa::Logger::instance().getHistory();
 
-        gui.drawDashboard(cpu, ramUsed, ramTotal, topProcs, logs, 
+        gui.drawUI(cpu, ramUsed, ramTotal, topProcs, logs, 
             // On Kill
             [](DWORD pid) {
                 lsaa::ActionKillProcess action(pid);
