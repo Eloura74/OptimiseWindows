@@ -1,88 +1,85 @@
 #pragma once
-#include "../core/IMonitor.hpp"
 #include <windows.h>
 #include <vector>
-#include <memory> 
+#include <string>
+#include "../core/IMonitor.hpp"
 
 namespace lsaa {
 
-    class CpuMonitor : public IMonitor {
+    class SystemMonitor : public IMonitor {
     public:
-        std::string getName() const override { return "SystemMonitorCPU"; }
+        std::string getName() const override { return "SystemMonitor"; }
 
         bool initialize() override {
-            // Premier appel pour initialiser les temps
-            GetSystemTimes(&idleTime_, &kernelTime_, &userTime_);
+            // Initial snapshot for CPU calculation
+            GetSystemTimes((FILETIME*)&prevIdle_, (FILETIME*)&prevKernel_, (FILETIME*)&prevUser_);
             return true;
         }
 
         bool collect() override {
-            FILETIME newIdle, newKernel, newUser;
-            GetSystemTimes(&newIdle, &newKernel, &newUser);
-
-            ULONGLONG idle = u64(newIdle) - u64(idleTime_);
-            ULONGLONG kernel = u64(newKernel) - u64(kernelTime_);
-            ULONGLONG user = u64(newUser) - u64(userTime_);
-
-            // KernelTime includes IdleTime on Windows, so we need to exclude it for total
-            ULONGLONG total = kernel + user; 
-            
-            // Calcul
-            if (total > 0) {
-                 cpuLoad_ = (double)(total - idle) * 100.0 / total;
-            }
-
-            // Save for next
-            idleTime_ = newIdle;
-            kernelTime_ = newKernel;
-            userTime_ = newUser;
-            return true;
-        }
-
-        MetricsMap getMetrics() const override {
-            return { {"cpu_usage_percent", cpuLoad_} };
-        }
-
-    private:
-        FILETIME idleTime_, kernelTime_, userTime_;
-        double cpuLoad_ = 0.0;
-
-        ULONGLONG u64(const FILETIME& ft) {
-            return ((ULONGLONG)ft.dwHighDateTime << 32) | ft.dwLowDateTime;
-        }
-    };
-
-    class RamMonitor : public IMonitor {
-    public:
-        std::string getName() const override { return "SystemMonitorRAM"; }
-
-        bool initialize() override { return true; }
-
-        bool collect() override {
+            // 1. Memory
             MEMORYSTATUSEX memInfo;
             memInfo.dwLength = sizeof(MEMORYSTATUSEX);
             GlobalMemoryStatusEx(&memInfo);
+            ramTotal_ = memInfo.ullTotalPhys;
+            ramUsed_ = memInfo.ullTotalPhys - memInfo.ullAvailPhys;
+            ramLoad_ = memInfo.dwMemoryLoad;
 
-            totalPhys_ = memInfo.ullTotalPhys;
-            availPhys_ = memInfo.ullAvailPhys;
-            usedPhys_ = totalPhys_ - availPhys_;
-            loadPercent_ = memInfo.dwMemoryLoad;
-            
+            // 2. CPU
+            FILETIME idle, kernel, user;
+            if (GetSystemTimes(&idle, &kernel, &user)) {
+                unsigned long long currentIdle = ftToUll(idle);
+                unsigned long long currentKernel = ftToUll(kernel);
+                unsigned long long currentUser = ftToUll(user);
+
+                unsigned long long deltaIdle = currentIdle - prevIdle_;
+                unsigned long long deltaKernel = currentKernel - prevKernel_;
+                unsigned long long deltaUser = currentUser - prevUser_;
+
+                unsigned long long totalSys = deltaKernel + deltaUser;
+                // If total is 0, keep previous val
+                if (totalSys > 0) {
+                     // Kernel time includes Idle time on some systems? No, usually separate or Kernel includes idle. 
+                     // Correct formula: (Total - Idle) / Total * 100
+                     // But wait, GetSystemTimes docs: "KernelTime includes IdleTime".
+                     // So Total = Kernel + User.  RealUsage = ( (Kernel - Idle) + User ) / (Kernel + User)
+                     
+                     unsigned long long active = (deltaKernel - deltaIdle) + deltaUser;
+                     cpuLoad_ = (double)active * 100.0 / (double)totalSys;
+                }
+
+                prevIdle_ = currentIdle;
+                prevKernel_ = currentKernel;
+                prevUser_ = currentUser;
+            }
+
             return true;
         }
 
         MetricsMap getMetrics() const override {
             return {
-                {"ram_total_bytes", (long long)totalPhys_},
-                {"ram_used_bytes", (long long)usedPhys_},
-                {"ram_load_percent", (double)loadPercent_}
+                {"cpu_usage_percent", cpuLoad_},
+                {"ram_total_bytes", (long long)ramTotal_},
+                {"ram_used_bytes", (long long)ramUsed_},
+                {"ram_load_percent", (double)ramLoad_}
             };
         }
 
     private:
-        DWORD loadPercent_ = 0;
-        DWORDLONG totalPhys_ = 0;
-        DWORDLONG availPhys_ = 0;
-        DWORDLONG usedPhys_ = 0;
+        unsigned long long prevIdle_ = 0;
+        unsigned long long prevKernel_ = 0;
+        unsigned long long prevUser_ = 0;
+
+        double cpuLoad_ = 0.0;
+        unsigned long long ramTotal_ = 0;
+        unsigned long long ramUsed_ = 0;
+        DWORD ramLoad_ = 0;
+
+        unsigned long long ftToUll(const FILETIME& ft) {
+            ULARGE_INTEGER uli;
+            uli.LowPart = ft.dwLowDateTime;
+            uli.HighPart = ft.dwHighDateTime;
+            return uli.QuadPart;
+        }
     };
 }

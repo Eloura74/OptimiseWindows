@@ -3,6 +3,7 @@
 #include <chrono>
 #include "core/Engine.hpp"
 #include "monitors/ProcessMonitor.hpp"
+#include "monitors/SystemMonitor.hpp"
 #include "core/Logger.hpp"
 #include "core/ConfigManager.hpp"
 #include "engine/Rule.hpp"
@@ -14,15 +15,19 @@
 #include "actions/ActionNotification.hpp"
 
 int main() {
-    lsaa::Logger::instance().log(lsaa::LogLevel::INFO, "LSAA Core System Starting (Phase 5.5)");
+    lsaa::Logger::instance().log(lsaa::LogLevel::INFO, "LSAA Core System Starting (Phase 6)");
 
     // 1. Init Engine
     lsaa::Engine engine;
 
     // 2. Add Monitors
+    // Process Monitor (Top Apps)
     auto pm = std::make_unique<lsaa::ProcessMonitor>();
     auto* pmPtr = pm.get(); // Keep raw ptr for GUI access
     engine.addMonitor(std::move(pm));
+
+    // System Monitor (CPU/RAM Global)
+    engine.addMonitor(std::make_unique<lsaa::SystemMonitor>());
 
     // 4. Init GUI
     auto& gui = lsaa::GuiManager::instance();
