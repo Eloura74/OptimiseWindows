@@ -13,6 +13,7 @@
 #include "../core/Lang.hpp"
 #include "../modules/Cleaner.hpp"
 #include "../modules/StartupManager.hpp"
+#include "../modules/ServiceManager.hpp"
 
 namespace lsaa {
 
@@ -442,19 +443,29 @@ namespace lsaa {
         }
 
         void renderOptimizer() {
+            static CleanParams params; 
             ImGui::TextColored(ImVec4(1,1,1,0.8f), "System Cleaner (Junk Files)");
             ImGui::Separator(); ImGui::Dummy(ImVec2(0, 20));
 
-            BeginCard("CleanCard");
-            ImGui::Text("Target Directory:");
-            ImGui::SameLine();
-            ImGui::TextColored(ImVec4(0.4f, 0.8f, 1.0f, 1.0f), "%s", cleaner_->getTempPath().c_str());
+            BeginCard("CleanCard", 0.0f);
             
+            ImGui::TextColored(ImVec4(0.4f, 0.9f, 1.0f, 1.0f), "Targets:");
+            ImGui::Dummy(ImVec2(0, 10));
+
+            ImGui::Checkbox(Lang::instance().get("SYS_TEMP"), &params.sysTemp); 
+            ImGui::SameLine(300);
+            ImGui::TextDisabled("(%s)", cleaner_->getTempPath().c_str());
+
+            ImGui::Checkbox(Lang::instance().get("CHROME_CACHE"), &params.chrome);
+            ImGui::Checkbox(Lang::instance().get("EDGE_CACHE"), &params.edge);
+            ImGui::Checkbox(Lang::instance().get("FIREFOX_CACHE"), &params.firefox);
+            ImGui::Checkbox(Lang::instance().get("DNS_CACHE"), &params.dns);
+
             ImGui::Dummy(ImVec2(0, 30));
 
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.5f, 0.7f, 1.0f));
             if (ImGui::Button(Lang::instance().get("SCAN_NOW"), ImVec2(300, 60))) {
-                lastScan_ = cleaner_->scan();
+                lastScan_ = cleaner_->scan(params);
             }
             ImGui::PopStyleColor();
 
@@ -468,8 +479,8 @@ namespace lsaa {
                  ImGui::Dummy(ImVec2(0, 20));
                  ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 1.0f));
                  if (ImGui::Button(Lang::instance().get("CLEAN_ALL"), ImVec2(300, 60))) {
-                     cleaner_->clean();
-                     lastScan_ = cleaner_->scan(); 
+                     cleaner_->clean(params);
+                     lastScan_ = cleaner_->scan(params); 
                  }
                  ImGui::PopStyleColor();
             } else {
@@ -548,6 +559,100 @@ namespace lsaa {
              }
              ImGui::PopStyleColor();
              EndCard();
+        }
+
+        void renderServiceManager() {
+            ImGui::Text("%s", Lang::instance().get("SERVICES"));
+            ImGui::Separator(); ImGui::Dummy(ImVec2(0, 20));
+
+            BeginCard("ServicesList", 0.0f); // Auto height
+            
+            static std::vector<ServiceInfo> services = ServiceManager::getServices();
+            static std::string filter = "";
+
+            if (ImGui::Button("Refresh Services", ImVec2(150, 35))) {
+                services = ServiceManager::getServices();
+            }
+
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(300);
+            static char searchBuf[128] = "";
+            if (ImGui::InputTextWithHint("##search", "Search Services...", searchBuf, 128)) {
+                filter = std::string(searchBuf);
+            }
+
+            ImGui::Dummy(ImVec2(0, 20));
+
+            if (ImGui::BeginTable("ServicesTable", 5, ImGuiTableFlags_BordersInnerH | ImGuiTableFlags_RowBg | ImGuiTableFlags_ScrollY)) {
+                ImGui::TableSetupColumn(Lang::instance().get("NAME"), ImGuiTableColumnFlags_WidthFixed, 200.0f);
+                ImGui::TableSetupColumn(Lang::instance().get("DISPLAY_NAME"), ImGuiTableColumnFlags_WidthStretch);
+                ImGui::TableSetupColumn(Lang::instance().get("PID"), ImGuiTableColumnFlags_WidthFixed, 60.0f);
+                ImGui::TableSetupColumn(Lang::instance().get("STATUS"), ImGuiTableColumnFlags_WidthFixed, 100.0f);
+                ImGui::TableSetupColumn(Lang::instance().get("ACTION"), ImGuiTableColumnFlags_WidthFixed, 120.0f);
+                ImGui::TableHeadersRow();
+
+                for (auto& svc : services) {
+                    // Filter logic
+                    if (!filter.empty()) {
+                        std::string lowerName = svc.name;
+                        std::string lowerDisplay = svc.displayName;
+                        std::string lowerFilter = filter;
+                        // Basic lowercase conversion for search (not robust for UTF8 but ok here)
+                        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+                        std::transform(lowerDisplay.begin(), lowerDisplay.end(), lowerDisplay.begin(), ::tolower);
+                        std::transform(lowerFilter.begin(), lowerFilter.end(), lowerFilter.begin(), ::tolower);
+                        
+                        if (lowerName.find(lowerFilter) == std::string::npos && 
+                            lowerDisplay.find(lowerFilter) == std::string::npos) {
+                            continue;
+                        }
+                    }
+
+                    ImGui::PushID(svc.name.c_str());
+                    ImGui::TableNextRow(ImGuiTableRowFlags_None, 40.0f);
+
+                    ImGui::TableNextColumn(); ImGui::AlignTextToFramePadding();
+                    ImGui::TextColored(ImVec4(0.4f, 0.9f, 1.0f, 1.0f), "%s", svc.name.c_str());
+
+                    ImGui::TableNextColumn(); ImGui::AlignTextToFramePadding();
+                    ImGui::Text("%s", svc.displayName.c_str());
+
+                    ImGui::TableNextColumn(); ImGui::AlignTextToFramePadding();
+                    ImGui::TextDisabled("%d", svc.pid);
+
+                    ImGui::TableNextColumn(); ImGui::AlignTextToFramePadding();
+                    if (svc.stateCode == SERVICE_RUNNING) 
+                        ImGui::TextColored(ImVec4(0.2f, 0.8f, 0.2f, 1.0f), "%s", svc.status.c_str());
+                    else if (svc.stateCode == SERVICE_STOPPED)
+                        ImGui::TextColored(ImVec4(0.8f, 0.2f, 0.2f, 1.0f), "%s", svc.status.c_str());
+                    else 
+                        ImGui::TextColored(ImVec4(0.8f, 0.8f, 0.2f, 1.0f), "%s", svc.status.c_str());
+
+                    ImGui::TableNextColumn();
+                    if (svc.canStop) {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.25f, 0.25f, 0.6f));
+                        if (ImGui::Button(Lang::instance().get("STOP_SERVICE"), ImVec2(100, 30))) {
+                            if (ServiceManager::stopService(svc.name)) {
+                                svc.status = "Stopping..."; // Optimistic update
+                                svc.canStop = false;
+                            }
+                        }
+                        ImGui::PopStyleColor();
+                    } else if (svc.stateCode == SERVICE_STOPPED) {
+                        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.25f, 0.8f, 0.25f, 0.6f));
+                        if (ImGui::Button(Lang::instance().get("START_SERVICE"), ImVec2(100, 30))) {
+                             if (ServiceManager::startService(svc.name)) {
+                                svc.status = "Starting...";
+                             }
+                        }
+                        ImGui::PopStyleColor();
+                    }
+
+                    ImGui::PopID();
+                }
+                ImGui::EndTable();
+            }
+            EndCard();
         }
 
         void updateHistory(double cpu, long long ramUsed, long long ramTotal) {

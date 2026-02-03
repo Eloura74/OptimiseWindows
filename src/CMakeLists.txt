@@ -8,5 +8,5 @@ target_include_directories(lsaa-core PRIVATE
 )
 
 # Link
-target_link_libraries(lsaa-core PRIVATE imgui_lib glfw opengl32 nlohmann_json::nlohmann_json)
+target_link_libraries(lsaa-core PRIVATE imgui_lib glfw opengl32 nlohmann_json::nlohmann_json shell32 advapi32)
 # Features C++20 spécifiques si nécessaire (ex: modules plus tard)

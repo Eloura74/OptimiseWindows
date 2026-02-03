@@ -57,6 +57,18 @@ namespace lsaa {
             en_["PATH"] = "File Path";
             en_["NAME"] = "Application Name";
             en_["ACTION"] = "Action";
+            en_["SYS_TEMP"] = "System Temporary Files";
+            en_["CHROME_CACHE"] = "Google Chrome Cache";
+            en_["EDGE_CACHE"] = "Microsoft Edge Cache";
+            en_["FIREFOX_CACHE"] = "Firefox Cache";
+            en_["DNS_CACHE"] = "DNS Cache (Flush)";
+            en_["SERVICES"] = " SERVICES ";
+            en_["DESC_SERVICES"] = "Manage Windows background services. Stop unnecessary services to free up resources.";
+            en_["START_SERVICE"] = "START";
+            en_["STOP_SERVICE"] = "STOP";
+            en_["STATUS"] = "Status";
+            en_["DISPLAY_NAME"] = "Display Name";
+            en_["PID"] = "PID";
             
             // Explanations / Tooltips
             en_["DESC_DASHBOARD"] = "Overview of your computer's health. Monitor CPU/RAM usage and control active processes.";
@@ -93,6 +105,18 @@ namespace lsaa {
             fr_["PATH"] = "Chemin du fichier";
             fr_["NAME"] = "Nom de l'application";
             fr_["ACTION"] = "Action";
+            fr_["SYS_TEMP"] = "Fichiers Temporaires Systeme";
+            fr_["CHROME_CACHE"] = "Cache Google Chrome";
+            fr_["EDGE_CACHE"] = "Cache Microsoft Edge";
+            fr_["FIREFOX_CACHE"] = "Cache Firefox";
+            fr_["DNS_CACHE"] = "Cache DNS (Vider)";
+            fr_["SERVICES"] = " SERVICES ";
+            fr_["DESC_SERVICES"] = "Gerez les services Windows en arriere-plan. Arretez les services inutiles pour gagner des ressources.";
+            fr_["START_SERVICE"] = "DEMARRER";
+            fr_["STOP_SERVICE"] = "ARRETER";
+            fr_["STATUS"] = "Etat";
+            fr_["DISPLAY_NAME"] = "Nom Affiché";
+            fr_["PID"] = "PID";
 
             // Explications / Tooltips
             fr_["DESC_DASHBOARD"] = "Vue d'ensemble de la sante de votre PC. Surveillez le processeur, la memoire et les logiciels actifs.";
